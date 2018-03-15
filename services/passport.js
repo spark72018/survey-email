@@ -26,8 +26,12 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback" // after user grants permission, user gets sent to this route
-    },
+      callbackURL: "/auth/google/callback",
+      proxy: true // after user grants permission, user gets sent to this route
+    },            // relative path allows us to ignore domain, however, 
+                  // GoogleStrategy is appending 'http' behind the scenes when req 
+                  // goes through any sort of proxy, and it goes through heroku proxy
+                  // in production 
     /*
           this function is our opportunity to create a new user 
           inside our own database and give user access to our app's functionalities.
